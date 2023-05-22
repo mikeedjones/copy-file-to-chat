@@ -2,6 +2,7 @@
   "name": "copy-file-to-chat",
   "displayName": "copy-file-to-chat",
   "description": "Copy the content of a file for chat",
+  "publisher": "mikeedjones",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.78.0"
@@ -30,7 +31,8 @@
       "explorer/context": [
         {
           "command": "copy-file-to-chat.sendSelectedFileContent",
-          "group": "9_cutcopypaste"
+          "group": "9_cutcopypaste",
+          "when": "!explorerResourceIsFolder"
         }
       ]
   }
