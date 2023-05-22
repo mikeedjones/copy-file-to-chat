@@ -3,7 +3,7 @@
   "displayName": "Copy file to chat",
   "description": "Copy the content of a file to the github copilot chat window.",
   "publisher": "mikeedjones",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.78.0"
   },
