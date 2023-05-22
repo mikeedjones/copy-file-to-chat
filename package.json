@@ -1,10 +1,14 @@
 {
-  "name": "copy-file-for-chat",
-  "displayName": "copy-file-for-chat",
+  "name": "copy-file-to-chat",
+  "displayName": "copy-file-to-chat",
   "description": "Copy the content of a file for chat",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.78.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mikeedjones/copy-file-to-chat.git"
   },
   "categories": [
     "Other"
@@ -14,7 +18,7 @@
   "contributes": {
     "commands": [
       {
-        "command": "copy-file-for-chat.sendSelectedFileContent",
+        "command": "copy-file-to-chat.sendSelectedFileContent",
         "title": "Copy file to chat",
         "category": "Other",
         "context": [
@@ -25,7 +29,7 @@
     "menus": {
       "explorer/context": [
         {
-          "command": "copy-file-for-chat.sendSelectedFileContent",
+          "command": "copy-file-to-chat.sendSelectedFileContent",
           "group": "9_cutcopypaste"
         }
       ]

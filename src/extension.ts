@@ -3,7 +3,7 @@ import * as fs from 'fs';
 
 export function activate(context: vscode.ExtensionContext) {
     // Register a command to send the content of the selected file to this chat window
-    let disposable = vscode.commands.registerCommand('copy-file-for-chat.sendSelectedFileContent', (uri: vscode.Uri) => {
+    let disposable = vscode.commands.registerCommand('copy-file-to-chat.sendSelectedFileContent', (uri: vscode.Uri) => {
         // Get the selected file path
         let filePath = uri.fsPath;
 
