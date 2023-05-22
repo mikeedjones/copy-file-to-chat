@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "copy-file-for-chat.helloWorld",
-        "title": "Hello World"
+        "command": "copy-file-for-chat.sendSelectedFileContent",
+        "title": "Copy file to chat"
       }
     ]
   },

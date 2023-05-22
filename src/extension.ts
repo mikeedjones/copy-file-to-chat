@@ -1,26 +1,50 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import * as fs from 'fs';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+    // Register a command to send the content of the selected file to this chat window
+    let disposable = vscode.commands.registerCommand('copy-file-for-chat.sendSelectedFileContent', () => {
+        // Get the active editor
+        let editor = vscode.window.activeTextEditor;
+        if (!editor) {
+            return; // No open text editor
+        }
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "copy-file-for-chat" is now active!');
+        // Get the selected file path
+        let filePath = editor.document.uri.fsPath;
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('copy-file-for-chat.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from copy-file-for-chat!');
-	});
+        // Read the content of the selected file
+        fs.readFile(filePath, 'utf8', (err, data) => {
+            if (err) {
+                vscode.window.showErrorMessage(`Failed to read file: ${err.message}`);
+                return;
+            }
 
-	context.subscriptions.push(disposable);
+            // Get the workspace folder that contains the selected file
+			if (!editor) {
+				return; // No open text editor
+			}
+            let workspaceFolder = vscode.workspace.getWorkspaceFolder(editor.document.uri);
+            if (!workspaceFolder) {
+                vscode.window.showErrorMessage('Failed to get workspace folder');
+                return;
+            }
+
+            // Get the relative path of the selected file within the workspace folder
+            let relativePath = vscode.workspace.asRelativePath(filePath);
+
+            // Format the message to include the file path and content
+            let message = `Content of \`${relativePath}\`:\n\`\`\`\n${data}\n\`\`\``;
+
+            // Send the message to this chat window
+            vscode.env.clipboard.writeText(message);
+            vscode.commands.executeCommand("workbench.panel.interactiveSession.view.copilot.focus");
+            vscode.commands.executeCommand('editor.action.clipboardPasteAction');
+        });
+    });
+
+    // Add the command to the context menu
+    context.subscriptions.push(disposable);
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() {}
