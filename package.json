@@ -19,7 +19,7 @@
     "commands": [
       {
         "command": "copy-file-to-chat.sendSelectedFileContent",
-        "title": "Copy file to chat",
+        "title": "Copy File to Chat",
         "category": "Other",
         "context": [
             "explorerItem"
