@@ -3,15 +3,9 @@ import * as fs from 'fs';
 
 export function activate(context: vscode.ExtensionContext) {
     // Register a command to send the content of the selected file to this chat window
-    let disposable = vscode.commands.registerCommand('copy-file-for-chat.sendSelectedFileContent', () => {
-        // Get the active editor
-        let editor = vscode.window.activeTextEditor;
-        if (!editor) {
-            return; // No open text editor
-        }
-
+    let disposable = vscode.commands.registerCommand('copy-file-for-chat.sendSelectedFileContent', (uri: vscode.Uri) => {
         // Get the selected file path
-        let filePath = editor.document.uri.fsPath;
+        let filePath = uri.fsPath;
 
         // Read the content of the selected file
         fs.readFile(filePath, 'utf8', (err, data) => {
@@ -21,10 +15,7 @@ export function activate(context: vscode.ExtensionContext) {
             }
 
             // Get the workspace folder that contains the selected file
-			if (!editor) {
-				return; // No open text editor
-			}
-            let workspaceFolder = vscode.workspace.getWorkspaceFolder(editor.document.uri);
+            let workspaceFolder = vscode.workspace.getWorkspaceFolder(uri);
             if (!workspaceFolder) {
                 vscode.window.showErrorMessage('Failed to get workspace folder');
                 return;
@@ -34,7 +25,7 @@ export function activate(context: vscode.ExtensionContext) {
             let relativePath = vscode.workspace.asRelativePath(filePath);
 
             // Format the message to include the file path and content
-            let message = `Content of \`${relativePath}\`:\n\`\`\`\n${data}\n\`\`\``;
+            let message = `Content of \`${relativePath}\`:\n\`\`\`\n${data}\n\`\`\`\n\n`;
 
             // Send the message to this chat window
             vscode.env.clipboard.writeText(message);

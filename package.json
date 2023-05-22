@@ -1,7 +1,7 @@
 {
   "name": "copy-file-for-chat",
   "displayName": "copy-file-for-chat",
-  "description": "",
+  "description": "Copy the content of a file for chat",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.78.0"
@@ -15,10 +15,22 @@
     "commands": [
       {
         "command": "copy-file-for-chat.sendSelectedFileContent",
-        "title": "Copy file to chat"
+        "title": "Copy file to chat",
+        "category": "Other",
+        "context": [
+            "explorerItem"
+        ]
       }
-    ]
-  },
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "copy-file-for-chat.sendSelectedFileContent",
+          "group": "9_cutcopypaste"
+        }
+      ]
+  }
+},
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
