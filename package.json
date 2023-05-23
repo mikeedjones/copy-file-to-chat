@@ -3,7 +3,7 @@
   "displayName": "Copy file to chat",
   "description": "Copy the content of a file to the github copilot chat window.",
   "publisher": "mikeedjones",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.78.0"
   },
@@ -21,25 +21,37 @@
   "contributes": {
     "commands": [
       {
-        "command": "copy-file-to-chat.sendSelectedFileContent",
-        "title": "Copy File to Chat",
+        "command": "extension.sendSelectedFileContent",
+        "title": "Copy File Content to Chat",
         "category": "Other",
         "context": [
-            "explorerItem"
+          "explorerItem"
+        ]
+      },
+      {
+        "command": "extension.sendSelectedDirectoryContent",
+        "title": "Copy Directory Content to Chat",
+        "category": "Other",
+        "context": [
+          "explorerItem"
         ]
       }
     ],
     "menus": {
       "explorer/context": [
         {
-          "command": "copy-file-to-chat.sendSelectedFileContent",
+          "command": "extension.sendSelectedFileContent",
           "group": "9_cutcopypaste",
           "when": "!explorerResourceIsFolder"
+        },
+        {
+          "command": "extension.sendSelectedDirectoryContent",
+          "group": "9_cutcopypaste",
+          "when": "explorerResourceIsFolder"
         }
       ]
-  }
-},
-
+    }
+  },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
@@ -49,16 +61,19 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.78.0",
     "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
+    "@types/vscode": "^1.78.0",
     "@typescript-eslint/eslint-plugin": "^5.59.1",
     "@typescript-eslint/parser": "^5.59.1",
+    "@vscode/test-electron": "^2.3.0",
     "eslint": "^8.39.0",
     "glob": "^8.1.0",
     "mocha": "^10.2.0",
-    "typescript": "^5.0.4",
-    "@vscode/test-electron": "^2.3.0"
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "minimatch": "^9.0.1"
   }
 }
