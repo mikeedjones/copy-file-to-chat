@@ -47,11 +47,22 @@ async function shouldIgnoreFile(fileUri: vscode.Uri) {
     for (let i = 0; i < directories.length && directories[i] !== repoRoot; i++) {
       let dirPath = directories.slice(0, i + 1).join(path.sep);
       let gitignoreUri = vscode.Uri.joinPath(vscode.Uri.file(dirPath), ".gitignore");
+      let copilotignoreUri = vscode.Uri.joinPath(vscode.Uri.file(dirPath), ".copilotignore");
       
       try {
         let gitignoreContent = await vscode.workspace.fs.readFile(gitignoreUri);
         let gitignore = gitignoreContent.toString().split("\n");
         for (let pattern of gitignore) {
+          if (pattern.trim() === "" || pattern.startsWith("#")) {
+            continue;
+          }
+          if (minimatch(relativePath, pattern)) {
+            return true;
+          }
+        }
+        let copilotignoreContent = await vscode.workspace.fs.readFile(copilotignoreUri);
+        let copilotignore = copilotignoreContent.toString().split("\n");
+        for (let pattern of copilotignore) {
           if (pattern.trim() === "" || pattern.startsWith("#")) {
             continue;
           }
