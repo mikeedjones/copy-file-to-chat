@@ -27,11 +27,7 @@ You can also use the command palette to run the "Copy File Contents to chat" com
 The formatted content of all files in the directory will be pasted into your chat window. It will follow 
 the .gitignore rules for the directory, so you can exclude files from being copied by adding them to the .gitignore file.
 
-The extension will also look for a .copilotignore file in the directory, and also use that if it exists. If there is no .copilotignore file, it will use the default list of extensions to ignore.
-
-### Default list of extensions to ignore
-- .csv
-- .npy
+The extension will also look for a .copilotignore file in the directory tree, and also use that to ignore files.
 
 ## Requirements
 
