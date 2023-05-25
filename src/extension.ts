@@ -132,7 +132,7 @@ export function activate(context: vscode.ExtensionContext) {
   let disposableFile = vscode.commands.registerCommand(
     "extension.sendSelectedFileContent",
     async (uri: vscode.Uri) => {
-        let toCopy = await copyDirectory(uri);
+        let toCopy = await copyFile(uri);
         await vscode.env.clipboard.writeText(toCopy);
         await vscode.commands.executeCommand("workbench.panel.interactiveSession.view.copilot.focus");
         vscode.commands.executeCommand('editor.action.clipboardPasteAction');
