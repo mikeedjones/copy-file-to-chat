@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import * as path from "path";
 import * as fs from "fs";
-import { minimatch } from 'minimatch';
+import ignore from 'ignore';
 
 async function copyFile(uri: vscode.Uri) {
   let content = await vscode.workspace.fs.readFile(uri);
@@ -48,25 +48,17 @@ async function shouldIgnoreFile(fileUri: vscode.Uri) {
       let dirPath = directories.slice(0, i + 1).join(path.sep);
       let gitignoreUri = vscode.Uri.joinPath(vscode.Uri.file(dirPath), ".gitignore");
       let copilotignoreUri = vscode.Uri.joinPath(vscode.Uri.file(dirPath), ".copilotignore");
-      
+      const ig = ignore().add(['.abc/*', '!.abc/d/'])
       try {
         let gitignoreContent = await vscode.workspace.fs.readFile(gitignoreUri);
-        let gitignore = gitignoreContent.toString().split("\n");
-        for (let pattern of gitignore) {
-          if (pattern.trim() === "" || pattern.startsWith("#")) {
-            continue;
-          }
-          if (minimatch(relativePath, pattern)) {
-            return true;
-          }
+        let igGit = ignore().add(gitignoreContent.toString().split("\n"));{
+        if (igGit.ignores(relativePath)) {
+          return true;
+        }
         }
         let copilotignoreContent = await vscode.workspace.fs.readFile(copilotignoreUri);
-        let copilotignore = copilotignoreContent.toString().split("\n");
-        for (let pattern of copilotignore) {
-          if (pattern.trim() === "" || pattern.startsWith("#")) {
-            continue;
-          }
-          if (minimatch(relativePath, pattern)) {
+        let igCoPilot = ignore().add(copilotignoreContent.toString().split("\n"));{
+          if (igCoPilot.ignores(relativePath)) {
             return true;
           }
         }
