@@ -41,11 +41,9 @@ This extension does not contribute any settings.
 
 None.
 
-## Release Notes
+## Issues
 
-### 0.0.1
-
-Initial release of Copy File for Chat.
+https://github.com/mikeedjones/copy-file-to-chat/issues
 
 ## License
 
