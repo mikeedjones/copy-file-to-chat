@@ -126,7 +126,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-  context.subscriptions.push(disposableFile, disposableDirectory);
+  context.subscriptions.push(disposableDirectory);
 }
 
 export function deactivate() {}
