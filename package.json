@@ -3,7 +3,7 @@
   "displayName": "Copy file to chat",
   "description": "Copy the content of a file to the github copilot chat window.",
   "publisher": "mikeedjones",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "engines": {
     "vscode": "^1.78.0"
   },
@@ -22,7 +22,7 @@
     "commands": [
       {
         "command": "extension.sendSelectedFileContent",
-        "title": "Copy File Content to Chat",
+        "title": "Copy File Content with Context",
         "category": "Other",
         "context": [
           "explorerItem"
@@ -30,7 +30,7 @@
       },
       {
         "command": "extension.sendSelectedDirectoryContent",
-        "title": "Copy Directory Content to Chat",
+        "title": "Copy Directory Content with Context",
         "category": "Other",
         "context": [
           "explorerItem"
@@ -39,11 +39,6 @@
     ],
     "menus": {
       "explorer/context": [
-        {
-          "command": "extension.sendSelectedFileContent",
-          "group": "9_cutcopypaste",
-          "when": "!explorerResourceIsFolder"
-        },
         {
           "command": "extension.sendSelectedDirectoryContent",
           "group": "9_cutcopypaste",
@@ -58,7 +53,8 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "deploy": "vsce publish --yarn"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
