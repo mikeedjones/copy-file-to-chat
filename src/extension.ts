@@ -117,33 +117,6 @@ Project Path: '${directoryPath}'
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  let disposableFileChat = vscode.commands.registerCommand(
-    "extension.sendSelectedFileContentCopilot",
-    async (uri: vscode.Uri) => {
-        let toCopy = await copyFile(uri);
-        await vscode.env.clipboard.writeText(toCopy);
-        await vscode.commands.executeCommand("workbench.panel.interactiveSession.view.copilot.focus");
-        vscode.commands.executeCommand('editor.action.clipboardPasteAction');
-    }
-  );
-
-  let disposableDirectoryChat = vscode.commands.registerCommand(
-    "extension.sendSelectedDirectoryContentCopilot",
-    async (uri: vscode.Uri) => {
-        let toCopy = await copyDirectory(uri);
-        await vscode.env.clipboard.writeText(toCopy);
-        await vscode.commands.executeCommand("workbench.panel.interactiveSession.view.copilot.focus");
-        vscode.commands.executeCommand('editor.action.clipboardPasteAction');
-    }
-  );
-
-  let disposableFile = vscode.commands.registerCommand(
-    "extension.sendSelectedFileContent",
-    async (uri: vscode.Uri) => {
-        let toCopy = await copyFile(uri);
-        await vscode.env.clipboard.writeText(toCopy);
-    }
-  );
 
   let disposableDirectory = vscode.commands.registerCommand(
     "extension.sendSelectedDirectoryContent",
@@ -153,9 +126,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
   );
 
-
-
-  context.subscriptions.push(disposableFile, disposableDirectory, disposableFileChat, disposableDirectoryChat);
+  context.subscriptions.push(disposableFile, disposableDirectory);
 }
 
 export function deactivate() {}

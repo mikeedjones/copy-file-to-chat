@@ -21,24 +21,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "extension.sendSelectedFileContentCopilot",
-        "title": "Copy File Content to Copilot",
-        "category": "Other",
-        "context": [
-          "explorerItem"
-        ]
-      },
-      {
-        "command": "extension.sendSelectedDirectoryContentCopilot",
-        "title": "Copy Directory Content to Copilot",
-        "category": "Other",
-        "context": [
-          "explorerItem"
-        ]
-      },
-      {
         "command": "extension.sendSelectedFileContent",
-        "title": "Copy File Content to Clipboard",
+        "title": "Copy File Content with Context",
         "category": "Other",
         "context": [
           "explorerItem"
@@ -46,7 +30,7 @@
       },
       {
         "command": "extension.sendSelectedDirectoryContent",
-        "title": "Copy Directory Content to Clipboard",
+        "title": "Copy Directory Content with Context",
         "category": "Other",
         "context": [
           "explorerItem"
@@ -55,11 +39,6 @@
     ],
     "menus": {
       "explorer/context": [
-        {
-          "command": "extension.sendSelectedFileContent",
-          "group": "9_cutcopypaste",
-          "when": "!explorerResourceIsFolder"
-        },
         {
           "command": "extension.sendSelectedDirectoryContent",
           "group": "9_cutcopypaste",
