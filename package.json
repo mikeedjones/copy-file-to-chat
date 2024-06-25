@@ -3,7 +3,7 @@
   "displayName": "Copy file to chat",
   "description": "Copy the content of a file to the github copilot chat window.",
   "publisher": "mikeedjones",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "engines": {
     "vscode": "^1.78.0"
   },
@@ -21,8 +21,24 @@
   "contributes": {
     "commands": [
       {
+        "command": "extension.sendSelectedFileContentCopilot",
+        "title": "Copy File Content to Copilot",
+        "category": "Other",
+        "context": [
+          "explorerItem"
+        ]
+      },
+      {
+        "command": "extension.sendSelectedDirectoryContentCopilot",
+        "title": "Copy Directory Content to Copilot",
+        "category": "Other",
+        "context": [
+          "explorerItem"
+        ]
+      },
+      {
         "command": "extension.sendSelectedFileContent",
-        "title": "Copy File Content to Chat",
+        "title": "Copy File Content to Clipboard",
         "category": "Other",
         "context": [
           "explorerItem"
@@ -30,7 +46,7 @@
       },
       {
         "command": "extension.sendSelectedDirectoryContent",
-        "title": "Copy Directory Content to Chat",
+        "title": "Copy Directory Content to Clipboard",
         "category": "Other",
         "context": [
           "explorerItem"
@@ -58,7 +74,8 @@
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "deploy": "vsce publish --yarn"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",
