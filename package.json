@@ -43,6 +43,11 @@
           "command": "extension.sendSelectedDirectoryContent",
           "group": "9_cutcopypaste",
           "when": "explorerResourceIsFolder"
+        },
+        {
+          "command": "extension.sendSelectedFileContent",
+          "group": "9_cutcopypaste",
+          "when": "!explorerResourceIsFolder"
         }
       ]
     }
