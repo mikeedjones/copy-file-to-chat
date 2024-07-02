@@ -14,10 +14,10 @@ Two commands are provided:
 ### Copy File Contents to Clipboard/Copilot
 
 1. Right-click on the file in the Explorer view
-2. Select "Copy File Contents to Copilot/Clipboard" from the context menu
+2. Select "Copy Directory/File Content with Context" from the context menu
 3. The formatted content will be pasted into your chat window
 
-You can also use the command palette to run the "Copy File Contents to Copilot/Clipboard" command.
+You can also use the command palette to run the "Copy Directory/File Content with Context" command.
 
 ### Copy Directory Contents to Clipboard/Copilot
 
