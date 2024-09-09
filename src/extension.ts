@@ -45,7 +45,7 @@ async function shouldIgnoreFile(fileUri: vscode.Uri) {
       let dirPath = directories.slice(0, i + 1).join(path.sep);
       let gitignoreUri = vscode.Uri.joinPath(vscode.Uri.file(dirPath), ".gitignore");
       let copilotignoreUri = vscode.Uri.joinPath(vscode.Uri.file(dirPath), ".copilotignore");
-      const ig = ignore().add(['.abc/*', '!.abc/d/'])
+      const ig = ignore().add(['.abc/*', '!.abc/d/', '.git/*', '!.git/d/', '.gitignore', '.copilotignore']);
       try {
         let gitignoreContent = await vscode.workspace.fs.readFile(gitignoreUri);
         let igGit = ignore().add(gitignoreContent.toString().split("\n"));{
