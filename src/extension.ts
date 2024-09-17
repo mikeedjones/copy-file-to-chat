@@ -45,8 +45,15 @@ async function shouldIgnoreFile(fileUri: vscode.Uri) {
       let dirPath = directories.slice(0, i + 1).join(path.sep);
       let gitignoreUri = vscode.Uri.joinPath(vscode.Uri.file(dirPath), ".gitignore");
       let copilotignoreUri = vscode.Uri.joinPath(vscode.Uri.file(dirPath), ".copilotignore");
-      const ig = ignore().add(['.abc/*', '!.abc/d/', '.git/*', '!.git/d/', '.gitignore', '.copilotignore']);
       try {
+        let nonTextIgnore = ignore().add(['*.png', '*.jpeg', '*.ico']);
+        if (nonTextIgnore.ignores(relativePath)) {
+          return true;
+        }
+        let alwaysIgnore = ignore().add(['.abc/*', '!.abc/d/', '.git/*', '!.git/d/', '.gitignore', '.copilotignore']);
+        if (alwaysIgnore.ignores(relativePath)) {
+          return true;
+        }
         let gitignoreContent = await vscode.workspace.fs.readFile(gitignoreUri);
         let igGit = ignore().add(gitignoreContent.toString().split("\n"));{
         if (igGit.ignores(relativePath)) {
@@ -126,8 +133,17 @@ export function activate(context: vscode.ExtensionContext) {
         await vscode.env.clipboard.writeText(toCopy);
     }
   );
-
   context.subscriptions.push(disposableDirectory);
+
+  let disposableFile = vscode.commands.registerCommand(
+    "extension.sendSelectedFileContent",
+    async (uri: vscode.Uri) => {
+        let toCopy = await copyFile(uri);
+        await vscode.env.clipboard.writeText(toCopy);
+    }
+  );
+  context.subscriptions.push(disposableFile);
+
 }
 
 export function deactivate() {}
